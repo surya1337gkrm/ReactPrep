@@ -1,0 +1,24 @@
+- A component can be exported in two ways. 
+    Named Export & Default export
+    
+    Named Export
+        export const App=()=<></>
+    Default Export
+        const App=()=><></>
+        export default App;
+
+- These components/items can be imported in any component/js file as follows.
+    Named Imports { Components which are exported as named exports}
+        import {App} from '<file path>'
+    Default Imports
+        import App from '<file path>'
+
+- There can be only one default export from a file.
+
+___________________________________________________________________________________________
+
+Everytime we need our variables to be in sync with the UI. So we need to use state variables [ useState]
+    which rerenders the component whenever state changes.
+
+___________________________________________________________________________________________
+
