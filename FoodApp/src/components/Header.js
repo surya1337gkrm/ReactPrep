@@ -1,9 +1,10 @@
 import food from '../static/food.png';
+import { Link } from 'react-router-dom';
 //named exports
 export const Title = () => (
-  <a href='/'>
+  <Link to='/'>
     <img src={food} alt='food logo' />
-  </a>
+  </Link>
 );
 
 const Header = () => {
@@ -12,10 +13,18 @@ const Header = () => {
       <Title />
       <div className='nav-items'>
         <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Contact</li>
-          <li>Cart</li>
+          <li>
+            <Link to='/'>Home</Link>
+          </li>
+          <li>
+            <Link to='/about'>About</Link>
+          </li>
+          <li>
+            <Link to='/contact'>Contact US</Link>
+          </li>
+          <li>
+            <Link to='/cart'>Cart</Link>
+          </li>
         </ul>
       </div>
     </div>

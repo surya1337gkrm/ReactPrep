@@ -1,20 +1,42 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import RestaurantCard from './RestaurantCard';
 import { restaurantList } from '../config';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import Shimmer from './shimmer';
 
 //filter function
-const filterData = (searchtext) => {
-  return restaurantList.filter((restaurant) =>
+const filterData = (searchtext, restaurants) => {
+  return restaurants.filter((restaurant) =>
     restaurant.data.name.toLowerCase().includes(searchtext.toLowerCase())
   );
 };
 
 const Body = () => {
   const [searchText, setSearchText] = useState('');
-  const [restaurants, setRestaurants] = useState(restaurantList);
+  // const [restaurants, setRestaurants] = useState([]);
+  const [allRestaurants, setAllRestaurants] = useState([]);
+  const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
   const handleChange = (e) => {
     setSearchText(e.target.value);
   };
+  const getData = async () => {
+    try {
+      const { data } = await axios.get(
+        // 'https://mockapi-swiggy.onrender.com/api'
+        'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING'
+      );
+      setAllRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+      setFilteredRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
     <>
       <div className='search-container'>
@@ -29,22 +51,30 @@ const Body = () => {
         <button
           className='search-btn'
           onClick={() => {
-            setRestaurants(filterData(searchText));
+            setFilteredRestaurants(filterData(searchText, allRestaurants));
             // setSearchText('');
           }}>
           Search
         </button>
       </div>
-      <div className='restaurant-list'>
-        {/* <RestaurantCard {...restaurantList[0].data} />
-        <RestaurantCard {...restaurantList[1].data} />
-        <RestaurantCard {...restaurantList[2].data} />
-        <RestaurantCard {...restaurantList[3].data} /> */}
-        {/* instead of writing same code multiple times, we can use map to iterate through the data */}
-        {restaurants.map((restaurant) => (
-          <RestaurantCard {...restaurant.data} key={restaurant.data.id} />
-        ))}
-      </div>
+      {allRestaurants.length !== 0 ? (
+        <div className='restaurant-list'>
+          {filteredRestaurants.length !== 0 ? (
+            //add link to each card with path to slug and also pass id to card as prop to send req to the restaurant menu endpoint
+            filteredRestaurants.map((restaurant) => (
+              <Link
+                to={`/restaurant/${restaurant.data.id}`}
+                key={restaurant.data.id}>
+                <RestaurantCard {...restaurant.data} />
+              </Link>
+            ))
+          ) : (
+            <>No Restaurants Found!</>
+          )}
+        </div>
+      ) : (
+        <Shimmer />
+      )}
     </>
   );
 };

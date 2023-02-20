@@ -1,0 +1,16 @@
+Whenever state changes, compoent renrenders and the the changes only will be updated in the component.
+
+- useEffect Hook
+    Component will be rendered and the useEffect will be called based on the dependency array.
+    - If state changes & state is passed as an dependency array, component will be rendered first and then the 
+      useEffect will be executed again.
+
+
+Browsers will stop the api requests to cross origin requests. to avoid this error, use CORS Plugin.
+    - Or, in the backend api, allow cors.
+
+
+
+useState shouldnt be called inside loops/conditional statements. Also,
+  useState shouldnt be used outside the functional component.
+  as useState is a method provided by react to create a local state in fn component.
