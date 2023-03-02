@@ -3,22 +3,13 @@ import { useParams } from 'react-router-dom';
 import axios from 'axios';
 import Shimmer from './shimmer';
 import { IMG_CDN_URL } from '../config';
+import useRestaurant from '../../utils/useRestaurant';
 
 function RestaurantMenu() {
   const params = useParams();
-  const [menuData, setMenuData] = useState(null);
-  useEffect(() => {
-    getRestaurantData();
-  }, []);
+  // const [menuData, setMenuData] = useState(null);
+  const menuData = useRestaurant(params.menuId);
 
-  async function getRestaurantData() {
-    const { data } = await axios.get(
-      'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/menu/v4/full?lat=12.9715987&lng=77.5945627&menuId=' +
-        params.menuId
-    );
-    console.log(data.data);
-    setMenuData(data?.data);
-  }
   //early-return
   return menuData ? (
     <>

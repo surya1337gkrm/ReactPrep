@@ -58,3 +58,11 @@ in order to implement routing, we use react-router-dom library.
     for base route, add errorElement property, if no path matched, render an error component.
 
 ____________________________________________________________________________________________________________
+
+If path started with / it will start the path from domain [ localhost:1234/]
+for relative paths, dont start with '/', so that path will be constructed from the current page we are in.
+
+we can use useParams() hook to ghet the params data. and to get the error data related to routes, we can use useRouteError() hook
+
+____________________________________________________________________________________________________________
+

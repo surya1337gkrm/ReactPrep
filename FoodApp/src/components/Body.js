@@ -1,16 +1,10 @@
 import { useState, useEffect } from 'react';
 import RestaurantCard from './RestaurantCard';
-import { restaurantList } from '../config';
+import { mainUrl, restaurantList } from '../config';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Shimmer from './shimmer';
-
-//filter function
-const filterData = (searchtext, restaurants) => {
-  return restaurants.filter((restaurant) =>
-    restaurant.data.name.toLowerCase().includes(searchtext.toLowerCase())
-  );
-};
+import { filterData } from '../../utils/helper';
 
 const Body = () => {
   const [searchText, setSearchText] = useState('');
@@ -24,8 +18,8 @@ const Body = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        // 'https://mockapi-swiggy.onrender.com/api'
-        'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING'
+        mainUrl
+        //'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING'
       );
       setAllRestaurants(data?.data?.cards[2]?.data?.data?.cards);
       setFilteredRestaurants(data?.data?.cards[2]?.data?.data?.cards);

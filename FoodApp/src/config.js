@@ -556,3 +556,5 @@ export const restaurantList = [
     subtype: 'basic',
   },
 ];
+export const mainUrl = 'https://mockapi-swiggy.onrender.com/api';
+export const menuUrl = 'https://mockapi-swiggy.onrender.com/api/menu/';
