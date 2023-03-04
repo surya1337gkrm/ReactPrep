@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { menuUrl } from '../src/config';
+import { menuUrl } from '../config';
 const useRestaurant = (menuId) => {
   const [menuData, setMenuData] = useState(null);
   useEffect(() => {

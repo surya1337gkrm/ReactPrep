@@ -4,7 +4,7 @@ import { mainUrl, restaurantList } from '../config';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Shimmer from './shimmer';
-import { filterData } from '../../utils/helper';
+import { filterData } from '../utils/helper';
 
 const Body = () => {
   const [searchText, setSearchText] = useState('');
@@ -33,17 +33,17 @@ const Body = () => {
 
   return (
     <>
-      <div className='search-container'>
+      <div className='flex justify-center p-2 shadow-md bg-gray-100 my-2'>
         <input
           type='text'
           name='search'
           placeholder='Search'
+          className='rounded-md'
           value={searchText}
-          className='input-container'
           onChange={(e) => handleChange(e)}
         />
         <button
-          className='search-btn'
+          className='px-2 mx-1 bg-green-500 text-white rounded hover:bg-green-800'
           onClick={() => {
             setFilteredRestaurants(filterData(searchText, allRestaurants));
             // setSearchText('');
@@ -52,7 +52,7 @@ const Body = () => {
         </button>
       </div>
       {allRestaurants.length !== 0 ? (
-        <div className='restaurant-list'>
+        <div className='flex flex-wrap gap-5 pl-5'>
           {filteredRestaurants.length !== 0 ? (
             //add link to each card with path to slug and also pass id to card as prop to send req to the restaurant menu endpoint
             filteredRestaurants.map((restaurant) => (

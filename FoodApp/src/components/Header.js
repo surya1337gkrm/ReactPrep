@@ -3,34 +3,54 @@ import { Link } from 'react-router-dom';
 //named exports
 export const Title = () => (
   <Link to='/'>
-    <img src={food} alt='food logo' />
+    <img src={food} alt='food logo' className='h-24' />
   </Link>
 );
 
 const Header = () => {
   return (
-    <div className='header'>
+    <header className='sm:flex justify-center shadow-md'>
       <Title />
-      <div className='nav-items'>
-        <ul>
+      <div className='px-5'>
+        <ul className='sm:flex py-10 gap-5'>
           <li>
-            <Link to='/'>Home</Link>
+            <Link
+              to='/'
+              className='hover:font-bold active:font-bold focus:outline-none focus:font-bold'>
+              Home
+            </Link>
           </li>
           <li>
-            <Link to='/about'>About</Link>
+            <Link
+              to='/about'
+              className='hover:font-bold active:font-bold focus:outline-none focus:font-bold'>
+              About
+            </Link>
           </li>
           <li>
-            <Link to='/contact'>Contact US</Link>
+            <Link
+              to='/contact'
+              className='hover:font-bold active:font-bold focus:outline-none focus:font-bold'>
+              Contact
+            </Link>
           </li>
           <li>
-            <Link to='/instamart'>Instamart</Link>
+            <Link
+              to='/instamart'
+              className='hover:font-bold active:font-bold focus:outline-none focus:font-bold'>
+              Instamart
+            </Link>
           </li>
           <li>
-            <Link to='/cart'>Cart</Link>
+            <Link
+              to='/cart'
+              className='hover:font-bold active:font-bold focus:outline-none focus:font-bold'>
+              Cart
+            </Link>
           </li>
         </ul>
       </div>
-    </div>
+    </header>
   );
 };
 //default export
