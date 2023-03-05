@@ -9,7 +9,7 @@ export const Title = () => (
 
 const Header = () => {
   return (
-    <header className='sm:flex justify-center shadow-md'>
+    <header className='sm:flex justify-center shadow-md sticky top-0 z-50 bg-white w-full'>
       <Title />
       <div className='px-5'>
         <ul className='sm:flex py-10 gap-5'>

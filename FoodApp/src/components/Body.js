@@ -33,12 +33,12 @@ const Body = () => {
 
   return (
     <>
-      <div className='flex justify-center p-2 shadow-md bg-gray-100 my-2'>
+      <div className='flex justify-center p-2 bg-white my-2 w-full'>
         <input
-          type='text'
+          type='search'
           name='search'
           placeholder='Search'
-          className='rounded-md'
+          className='rounded-md bg-gray-200 p-1 focus:outline-none'
           value={searchText}
           onChange={(e) => handleChange(e)}
         />

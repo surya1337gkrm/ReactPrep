@@ -9,6 +9,7 @@ import About from './components/About';
 import Error from './components/Error';
 import Contact from './components/Contact';
 import Profile from './components/Profile';
+import Cart from './components/cart';
 
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import RestaurantMenu from './components/RestaurantMenu';
@@ -62,6 +63,10 @@ const appRouter = createBrowserRouter([
             <Instamart />
           </Suspense>
         ),
+      },
+      {
+        path: '/cart',
+        element: <Cart />,
       },
     ],
   },
