@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import '../index.css';
 
@@ -15,16 +15,40 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
 import RestaurantMenu from './components/RestaurantMenu';
 import Shimmer from './components/shimmer';
 
+import axios from 'axios';
+import UserContext from './utils/userContext';
+
 //lazy loading instamart component
 const Instamart = lazy(() => import('./components/Instamart'));
 
 const AppLayout = () => {
+  const [user, setUser] = useState({});
+  const getUserdata = async () => {
+    try {
+      const { data } = await axios.get(
+        'https://api.github.com/users/surya1337gkrm'
+      );
+      setUser(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  useEffect(() => {
+    getUserdata();
+  }, []);
+
+  if (!user) {
+    return <Shimmer />;
+  }
   return (
-    <div>
-      <Header />
-      <Outlet />
-      <Footer />
-    </div>
+    <>
+      <UserContext.Provider value={{ user: user }}>
+        <Header />
+        <Outlet />
+        <Footer />
+      </UserContext.Provider>
+    </>
   );
 };
 

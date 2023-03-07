@@ -560,3 +560,5 @@ export const mainUrl = 'https://mockapi-swiggy.onrender.com/api';
 export const menuUrl = 'https://mockapi-swiggy.onrender.com/api/menu/';
 export const emptyCartURl =
   'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0';
+
+const mockApiRailwayURL = 'https://mockapi-swiggy.up.railway.app/api';

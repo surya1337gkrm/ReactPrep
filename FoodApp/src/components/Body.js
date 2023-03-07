@@ -21,13 +21,20 @@ const Body = () => {
         mainUrl
         //'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING'
       );
-      setAllRestaurants(data?.data?.cards[2]?.data?.data?.cards);
-      setFilteredRestaurants(data?.data?.cards[2]?.data?.data?.cards);
+      setAllRestaurants(
+        data?.data?.cards[2]?.data?.data?.cards ||
+          data?.data?.cards[1]?.data?.data?.cards
+      );
+      setFilteredRestaurants(
+        data?.data?.cards[2]?.data?.data?.cards ||
+          data?.data?.cards[1]?.data?.data?.cards
+      );
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
+    window.scrollTo(0, 0);
     getData();
   }, []);
 
@@ -51,8 +58,18 @@ const Body = () => {
           Search
         </button>
       </div>
+      {filteredRestaurants.length !== 0 ? (
+        <>
+          <h1 className='font-bold text-2xl px-5 mx-5'>
+            {filteredRestaurants.length} Restaurants
+          </h1>
+          <hr className='border-gray-400 w-auto mx-5' />
+        </>
+      ) : (
+        <></>
+      )}
       {allRestaurants.length !== 0 ? (
-        <div className='flex flex-wrap gap-5 pl-5'>
+        <div className='flex flex-wrap gap-5 pl-5 m-5'>
           {filteredRestaurants.length !== 0 ? (
             //add link to each card with path to slug and also pass id to card as prop to send req to the restaurant menu endpoint
             filteredRestaurants.map((restaurant) => (

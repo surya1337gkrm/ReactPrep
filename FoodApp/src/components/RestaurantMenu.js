@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+
 import Shimmer from './shimmer';
 import { IMG_CDN_URL } from '../config';
 import useRestaurant from '../utils/useRestaurant';
@@ -10,6 +10,10 @@ function RestaurantMenu() {
   const params = useParams();
   // const [menuData, setMenuData] = useState(null);
   const menuData = useRestaurant(params.menuId);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  });
 
   //early-return
   return menuData ? (
@@ -57,7 +61,7 @@ function RestaurantMenu() {
               return (
                 <li key={ele.id}>
                   <div className='flex justify-between w-[500px] p-2 bg-slate-50 my-2 shadow'>
-                    <div className='flex-col p-2 w-[350px]'>
+                    <div className='flex-col p-2 w-[350px] '>
                       <h3>{ele.name}</h3>
                       {ele.description ? (
                         <small className='opacity-50'>{ele.description}</small>
@@ -71,7 +75,9 @@ function RestaurantMenu() {
                       )}
                       <br />
                       <small className="font-bold before:content-['\20B9']">
-                        {ele.price / 100}
+                        {ele.price === 0 || !ele.price
+                          ? ele.defaultPrice / 100
+                          : ele.price / 100}
                       </small>
                     </div>
                     <div className='w-[118px] h-[100px] m-1 p-1'>
