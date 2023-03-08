@@ -1,13 +1,10 @@
 {
-  "homepage": "http://surya1337gkrm.github.io/ReactPrep/FoodApp",
   "name": "foodapp",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "parcel index.html",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,7 +13,6 @@
     "@parcel/packager-raw-url": "^2.8.3",
     "@parcel/transformer-webmanifest": "^2.8.3",
     "buffer": "^5.7.1",
-    "gh-pages": "^5.0.0",
     "parcel": "^2.8.3",
     "postcss": "^8.4.21",
     "process": "^0.11.10",
