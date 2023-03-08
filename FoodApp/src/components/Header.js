@@ -1,11 +1,11 @@
-import food from '../static/food.png';
+import food from '../static/food2.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import UserContext from '../utils/userContext';
 //named exports
 export const Title = () => (
   <Link to='/'>
-    <img src={food} alt='food logo' className='h-24' />
+    <img src={food} alt='food logo' className='h-14 m-2' />
   </Link>
 );
 
@@ -13,7 +13,7 @@ const Header = () => {
   const { user } = useContext(UserContext);
 
   return (
-    <header className='sm:flex justify-between items-center shadow-md sticky top-0 z-50 bg-white w-full'>
+    <header className='w-full h-max sm:flex justify-evenly items-center shadow-md sticky top-0 z-50 bg-white '>
       <Title />
       <div className='flex px-5'>
         <ul className='sm:flex py-10 gap-5'>

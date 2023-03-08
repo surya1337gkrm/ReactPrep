@@ -19,14 +19,14 @@ function RestaurantMenu() {
   return menuData ? (
     <>
       <div className='flex'>
-        <div className='flex'>
+        <div className='flex max-w-md sticky top-20'>
           <img
             src={IMG_CDN_URL + menuData.cloudinaryImageId}
             alt={menuData.name}
-            className='w-[200] h-[200] object-contain mx-2 p-1'
+            className='w-[200] h-[200] object-contain mx-2 p-1 f'
           />
           <div className='m-5 p-5'>
-            <h1 className='font-bold text-3xl '>{menuData.name}</h1>
+            <h1 className='font-bold text-3xl'>{menuData.name}</h1>
             <p className='opacity-50'>{menuData.cuisines.join(', ')}</p>
             <p className='opacity-50'>
               {menuData.area}, {menuData.city}
@@ -53,7 +53,7 @@ function RestaurantMenu() {
             <small>{menuData.totalRatingsString}</small>
           </div>
         </div>
-        <div>
+        <div className='px-5 mx-5'>
           <h3 className='font-bold text-3xl mt-5 pt-5'>Menu</h3>
           <ul>
             {Object.values(menuData.menu.items).map((ele, idx) => {
@@ -63,7 +63,7 @@ function RestaurantMenu() {
                   <div className='flex justify-between w-[500px] p-2 bg-slate-50 my-2 shadow'>
                     <div className='flex-col p-2 w-[350px] '>
                       <h3>{ele.name}</h3>
-                      {ele.description ? (
+                      {ele.description.trim() ? (
                         <small className='opacity-50'>{ele.description}</small>
                       ) : (
                         <small className='opacity-30'>

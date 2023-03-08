@@ -7,7 +7,7 @@ const RestaurantCard = ({
   lastMileTravelString,
 }) => {
   return (
-    <div className='w-[250px] p-2 m-2 shadow-lg rounded bg-white h-full hover:border-2 border-gray-300 hover:scale-105'>
+    <div className='w-[250px] p-2 m-2 shadow-lg rounded bg-white h-full hover:border-2 border-gray-300 hover:scale-105 ease-in-out duration-300'>
       <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} />
       <h2 className='font-bold'>{name}</h2>
       <small className='opacity-60'>{cuisines.join(', ')}</small>

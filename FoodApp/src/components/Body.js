@@ -11,6 +11,7 @@ const Body = () => {
   // const [restaurants, setRestaurants] = useState([]);
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+  const [total, setTotal] = useState(0);
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
@@ -29,6 +30,7 @@ const Body = () => {
         data?.data?.cards[2]?.data?.data?.cards ||
           data?.data?.cards[1]?.data?.data?.cards
       );
+      setTotal(data?.data?.cards[2]?.data?.data?.totalOpenRestaurants);
     } catch (e) {
       console.log(e);
     }
@@ -37,7 +39,7 @@ const Body = () => {
     window.scrollTo(0, 0);
     getData();
   }, []);
-
+  console.log(total);
   return (
     <>
       <div className='flex justify-center p-2 bg-white my-2 w-full'>
@@ -58,11 +60,9 @@ const Body = () => {
           Search
         </button>
       </div>
-      {filteredRestaurants.length !== 0 ? (
+      {total !== 0 ? (
         <>
-          <h1 className='font-bold text-2xl px-5 mx-5'>
-            {filteredRestaurants.length} Restaurants
-          </h1>
+          <h1 className='font-bold text-2xl px-5 mx-5'>{total} Restaurants</h1>
           <hr className='border-gray-400 w-auto mx-5' />
         </>
       ) : (

@@ -3,14 +3,14 @@ import { useContext } from 'react';
 
 const Footer = () => {
   const { user } = useContext(UserContext);
+  console.log(user);
   return (
-    <footer className='w-full bg-slate-800 mt-5 p-5 text-white text-center h-screen'>
+    <footer className='w-full bg-slate-800 mt-5 p-5 text-white text-center'>
       <h3 className='pb-4'>
         Made by
         <span className='font-bold'>{` ${
           user.name
         } | © ${new Date().getFullYear()}`}</span>
-        <small>{user.bio}</small>
       </h3>
       <hr className='border-gray-400 w-80 mx-auto' />
       <div className='flex p-2 m-2 justify-center items-center gap-5'>
