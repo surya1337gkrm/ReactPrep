@@ -8,7 +8,9 @@ export default class ClassComponent extends React.Component {
         <UserContext.Consumer>
           {({ user }) => (
             <>
-              <small>{`${user.name} | ${user.email ? user.email : ''}`}</small>
+              <small>{`${user.name} | ${
+                user.email ? user.email : 'suryavenkatesh0@gmail.com'
+              }`}</small>
             </>
           )}
         </UserContext.Consumer>

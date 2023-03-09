@@ -1,7 +1,7 @@
 import food from '../static/food2.png';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
-import UserContext from '../utils/userContext';
+import UserContext from '../utils/UserContext';
 //named exports
 export const Title = () => (
   <Link to='/'>

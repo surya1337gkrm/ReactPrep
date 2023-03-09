@@ -16,7 +16,7 @@ import RestaurantMenu from './components/RestaurantMenu';
 import Shimmer from './components/shimmer';
 
 import axios from 'axios';
-import UserContext from './utils/userContext';
+import UserContext from './utils/UserContext';
 
 //lazy loading instamart component
 const Instamart = lazy(() => import('./components/Instamart'));
