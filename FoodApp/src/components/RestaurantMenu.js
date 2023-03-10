@@ -5,11 +5,14 @@ import Shimmer from './shimmer';
 import { IMG_CDN_URL } from '../config';
 import useRestaurant from '../utils/useRestaurant';
 import FillerImage from './FillerImage';
+import { useDispatch } from 'react-redux';
+import { addItem } from '../utils/cartSlice';
 
 function RestaurantMenu() {
   const params = useParams();
   // const [menuData, setMenuData] = useState(null);
   const menuData = useRestaurant(params.menuId);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -18,8 +21,8 @@ function RestaurantMenu() {
   //early-return
   return menuData ? (
     <>
-      <div className='flex'>
-        <div className='flex max-w-md sticky top-20'>
+      <div className='lg:flex'>
+        <div className='flex justify-center w-full h-fit px-5 mx-5 bg-white z-40 sticky top-28 lg:max-w-md'>
           <img
             src={IMG_CDN_URL + menuData.cloudinaryImageId}
             alt={menuData.name}
@@ -60,7 +63,7 @@ function RestaurantMenu() {
               console.log(menuData);
               return (
                 <li key={ele.id}>
-                  <div className='flex justify-between w-[500px] p-2 bg-slate-50 my-2 shadow'>
+                  <div className='flex justify-between w-fit p-2 bg-slate-50 my-2 shadow'>
                     <div className='flex-col p-2 w-[350px] '>
                       <h3>{ele.name}</h3>
                       {ele.description.trim() ? (
@@ -90,7 +93,12 @@ function RestaurantMenu() {
                       ) : (
                         <FillerImage className='w-full' />
                       )}
-                      <button className='relative -top-4 left-5 bg-white px-5 font-bold text-green-700 border-2 border-gray-200 '>
+                      <button
+                        className='relative -top-4 left-5 bg-white px-5 font-bold text-green-700 border-2 border-gray-200'
+                        onClick={() => {
+                          console.log(ele);
+                          dispatch(addItem(ele));
+                        }}>
                         Add
                       </button>
                     </div>

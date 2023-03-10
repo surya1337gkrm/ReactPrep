@@ -17,6 +17,8 @@ import Shimmer from './components/shimmer';
 
 import axios from 'axios';
 import UserContext from './utils/UserContext';
+import { Provider } from 'react-redux';
+import store from './utils/store';
 
 //lazy loading instamart component
 const Instamart = lazy(() => import('./components/Instamart'));
@@ -42,13 +44,15 @@ const AppLayout = () => {
     return <Shimmer />;
   }
   return (
-    <>
-      <UserContext.Provider value={{ user: user }}>
-        <Header />
-        <Outlet />
-        <Footer />
-      </UserContext.Provider>
-    </>
+    <div className='flex flex-col min-h-screen justify-between'>
+      <Provider store={store}>
+        <UserContext.Provider value={{ user: user }}>
+          <Header />
+          <Outlet />
+          <Footer />
+        </UserContext.Provider>
+      </Provider>
+    </div>
   );
 };
 

@@ -39,7 +39,7 @@ const Body = () => {
     window.scrollTo(0, 0);
     getData();
   }, []);
-  console.log(total);
+
   return (
     <>
       <div className='flex justify-center p-2 bg-white my-2 w-full'>

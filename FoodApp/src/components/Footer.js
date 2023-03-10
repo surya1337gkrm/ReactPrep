@@ -3,7 +3,6 @@ import { useContext } from 'react';
 
 const Footer = () => {
   const { user } = useContext(UserContext);
-  console.log(user);
   return (
     <footer className='w-full bg-slate-800 mt-5 p-5 text-white text-center'>
       <h3 className='pb-4'>

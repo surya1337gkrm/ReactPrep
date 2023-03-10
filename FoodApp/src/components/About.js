@@ -8,7 +8,6 @@ const About = () => {
     window.scrollTo(0, 0);
   }, []);
   const user = useContext(UserContext);
-  console.log(user);
 
   return (
     <div className='flex-col text-center p-2 gap-2'>
