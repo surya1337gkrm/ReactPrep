@@ -1,9 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+
+export const getTodos = createAsyncThunk('todos/getTodos', async () => {
+  const { data } = await axios.get(
+    'https://jsonplaceholder.typicode.com/todos'
+  );
+  return data;
+});
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: {
     items: [],
+    todos: [],
+    isLoading: false,
   },
   reducers: {
     addItem: (state, action) => {
@@ -16,6 +26,18 @@ const cartSlice = createSlice({
     clearCart: (state, action) => {
       state.items = [];
     },
+  },
+  //handles extra action types here. related to thunk
+  extraReducers: (builder) => {
+    builder.addCase(getTodos.pending, (state, action) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getTodos.fulfilled, (state, action) => {
+      state.todos = action.payload.slice(1, 31);
+    });
+    builder.addCase(getTodos.rejected, (state, action) => {
+      state.isLoading = false;
+    });
   },
 });
 

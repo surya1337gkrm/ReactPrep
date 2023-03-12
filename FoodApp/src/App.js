@@ -43,8 +43,9 @@ const AppLayout = () => {
   if (!user) {
     return <Shimmer />;
   }
+  //add justify-between : to center the content
   return (
-    <div className='flex flex-col min-h-screen justify-between'>
+    <div className='flex flex-col min-h-screen'>
       <Provider store={store}>
         <UserContext.Provider value={{ user: user }}>
           <Header />
