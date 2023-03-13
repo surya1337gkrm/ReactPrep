@@ -14,6 +14,7 @@ const cartSlice = createSlice({
     items: [],
     todos: [],
     isLoading: false,
+    profileData: {},
   },
   reducers: {
     addItem: (state, action) => {
@@ -33,6 +34,7 @@ const cartSlice = createSlice({
       state.isLoading = true;
     });
     builder.addCase(getTodos.fulfilled, (state, action) => {
+      state.isLoading = false;
       state.todos = action.payload.slice(1, 31);
     });
     builder.addCase(getTodos.rejected, (state, action) => {

@@ -1,18 +1,27 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTodos } from '../utils/cartSlice';
+import Shimmer from './shimmer';
 
 function Profile() {
   const dispatch = useDispatch();
   const todos = useSelector((store) => store.cart.todos);
+  const isLoading = useSelector((store) => store.cart.isLoading);
+
   useEffect(() => {
     dispatch(getTodos());
   }, []);
 
+  if (isLoading) {
+    return <Shimmer />;
+  }
+
   return (
     <>
-      <div>Profile</div>
-      <div className='flex flex-wrap'>
+      <p className='font-bold'>
+        Component to display data fetched using Redux Thunk
+      </p>
+      <div className='flex flex-wrap justify-center items-center'>
         {todos.map((todo) => (
           <div
             key={todo.id}

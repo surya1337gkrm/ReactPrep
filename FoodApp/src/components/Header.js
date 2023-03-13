@@ -37,13 +37,13 @@ const Header = () => {
               About
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link
               to='/contact'
               className='hover:font-bold active:font-bold focus:outline-none focus:font-bold'>
               Contact
             </Link>
-          </li>
+          </li> */}
           <li>
             <Link
               to='/instamart'

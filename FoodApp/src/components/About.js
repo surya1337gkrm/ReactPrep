@@ -10,10 +10,9 @@ const About = () => {
   const user = useContext(UserContext);
 
   return (
-    <div className='flex-col text-center p-2 gap-2'>
-      <h2>About Page</h2>
-      <Link to='profile' className='bg-gray-300 m-2'>
-        Profile
+    <div className='grid p-5 text-center place-items-center gap-2 '>
+      <Link to='profile' className='bg-slate-500 m-2 p-2 text-white rounded w-fit'>
+        JSONPlaceHolder
       </Link>
       <Outlet />
       <br />
