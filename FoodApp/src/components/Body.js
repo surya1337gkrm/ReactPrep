@@ -52,7 +52,7 @@ const Body = () => {
           onChange={(e) => handleChange(e)}
         />
         <button
-          className='px-2 mx-1 bg-green-500 text-white rounded hover:bg-green-800'
+          className='px-2 mx-1 bg-orange-500 text-white rounded hover:bg-green-800'
           onClick={() => {
             setFilteredRestaurants(filterData(searchText, allRestaurants));
             // setSearchText('');

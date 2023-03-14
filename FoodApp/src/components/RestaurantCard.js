@@ -11,7 +11,7 @@ const RestaurantCard = ({
       <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} />
       <h2 className='font-bold'>{name}</h2>
       <small className='opacity-60'>{cuisines.join(', ')}</small>
-      <p className='flex bg-green-500 w-14 px-2 mt-1 text-white justify-center items-center'>
+      <p className='flex bg-orange-500 w-14 px-2 mt-1 text-white justify-center items-center'>
         <span className='pr-1'>
           <svg
             xmlns='http://www.w3.org/2000/svg'
