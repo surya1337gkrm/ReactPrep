@@ -19,10 +19,10 @@ const Header = () => {
   const cartItems = useSelector((state) => state.cart.items);
 
   return (
-    <header className='w-full h-max sm:flex justify-evenly items-center shadow-md sticky top-0 z-50 bg-white '>
+    <header className='w-full h-max shadow-md sticky top-0 z-50 bg-white sm:flex justify-evenly items-center '>
       <Title />
       <div className='flex px-5'>
-        <ul className='sm:flex py-10 gap-5'>
+        <ul className='flex py-10 gap-3'>
           <li>
             <Link
               to='/'

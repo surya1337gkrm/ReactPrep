@@ -22,7 +22,7 @@ function RestaurantMenu() {
   return menuData ? (
     <>
       <div className='lg:flex'>
-        <div className='flex justify-center w-full h-fit px-5 mx-5 bg-white z-40 sticky top-28 lg:max-w-md'>
+        <div className='flex justify-center w-full h-fit px-5 mx-5 bg-white z-40 md:sticky top-28 lg:max-w-md'>
           <img
             src={IMG_CDN_URL + menuData.cloudinaryImageId}
             alt={menuData.name}

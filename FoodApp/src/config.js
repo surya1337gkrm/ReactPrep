@@ -724,7 +724,7 @@ object will be modified and the property which is modified only will be present 
   to avoid this, either use seperate state for both properties.
 
   or use spread syntax and get all the properties and update the required property.
-  setState((prevState)=>{...prevState,count:count+1})
+  setState((prevState)=>{return {...prevState,count:count+1}})
 `,
   tailwind: `in order to use tailwind, we can add tailwind cdn url in our root html file
 (<script src="https://cdn.tailwindcss.com"></script>)
