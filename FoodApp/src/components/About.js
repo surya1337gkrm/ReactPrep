@@ -11,7 +11,7 @@ const About = () => {
 
   return (
     <div className='grid p-5 text-center place-items-center gap-2 '>
-      <Link to='profile' className='bg-slate-500 m-2 p-2 text-white rounded w-fit'>
+      <Link to='test' className='bg-slate-500 m-2 p-2 text-white rounded w-fit'>
         JSONPlaceHolder
       </Link>
       <Outlet />

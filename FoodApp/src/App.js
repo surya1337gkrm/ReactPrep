@@ -45,7 +45,7 @@ const AppLayout = () => {
   }
   //add justify-between : to center the content
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen justify-between'>
       <Provider store={store}>
         <UserContext.Provider value={{ user: user }}>
           <Header />
@@ -64,7 +64,7 @@ const appRouter = createBrowserRouter([
     errorElement: <Error />,
     children: [
       {
-        path: '/',
+        path: '',
         element: <Body />,
       },
       {
@@ -72,7 +72,7 @@ const appRouter = createBrowserRouter([
         element: <About />,
         children: [
           {
-            path: 'profile',
+            path: 'test',
             element: <Profile />,
           },
         ],
@@ -102,4 +102,8 @@ const appRouter = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.querySelector('#root'));
-root.render(<RouterProvider router={appRouter} />);
+root.render(
+  <Provider store={store}>
+    <RouterProvider router={appRouter} />
+  </Provider>
+);

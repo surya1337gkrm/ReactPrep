@@ -19,7 +19,10 @@ const Header = () => {
   const cartItems = useSelector((state) => state.cart.items);
 
   return (
-    <header className='w-full h-max shadow-md sticky top-0 z-50 bg-white sm:flex justify-evenly items-center '>
+    <header
+      className={`w-full h-max shadow-md sticky top-0 z-50 bg-white sm:flex ${
+        user.avatar_url ? 'justify-evenly' : 'justify-center'
+      } items-center `}>
       <Title />
       <div className='flex px-5'>
         <ul className='flex py-10 gap-3'>
@@ -63,9 +66,13 @@ const Header = () => {
           </li>
         </ul>
       </div>
-      <div className='hidden sm:bg-white sm:m-2 sm:p-2 sm:border-2 sm:border-orange-300 sm:w-14 sm:h-14 sm:rounded-full sm:shadow-md hover:scale-110 sm:block'>
-        <img src={user.avatar_url} className='object-cover' />
-      </div>
+      {user.avatar_url ? (
+        <div className='hidden sm:bg-white sm:m-2 sm:p-2 sm:border-2 sm:border-orange-300 sm:w-14 sm:h-14 sm:rounded-full sm:shadow-md hover:scale-110 sm:block'>
+          <img src={user.avatar_url} className='object-cover' />
+        </div>
+      ) : (
+        <></>
+      )}
     </header>
   );
 };
