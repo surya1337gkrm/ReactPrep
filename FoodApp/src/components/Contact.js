@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { docsData } from '../config';
 
 function Contact() {
@@ -9,12 +9,36 @@ function Contact() {
     return obj;
   });
 
+  const itemsRef = useRef(null);
+
   const handleHide = (key) => {
     setHide((prevState) => {
       Object.keys(prevState).forEach((keyVal) => (prevState[keyVal] = false));
       prevState[key] = true;
       return { ...prevState };
     });
+    scrollToItem(key);
+  };
+
+  const scrollToItem = (key) => {
+    const map = getMap();
+    const node = map.get(key);
+    // console.log(node.getBoundingClientRect());
+    // window.scrollTo(
+    //   0,
+    //   node.getBoundingClientRect().y
+    // );
+    node.scrollIntoView({
+      behaviour: 'smooth',
+      block: 'nearest',
+    });
+  };
+
+  const getMap = () => {
+    if (!itemsRef.current) {
+      itemsRef.current = new Map();
+    }
+    return itemsRef.current;
   };
 
   return (
@@ -22,6 +46,14 @@ function Contact() {
       {Object.keys(docsData).map((keyVal) => (
         <div
           key={keyVal}
+          ref={(node) => {
+            const map = getMap();
+            if (node) {
+              map.set(keyVal, node);
+            } else {
+              map.delete(keyVal);
+            }
+          }}
           className='text-center bg-slate-800 text-white rounded p-5 m-5 cursor-pointer relative'>
           {hide[keyVal] ? (
             <></>

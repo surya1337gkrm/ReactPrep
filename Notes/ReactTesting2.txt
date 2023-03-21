@@ -1,0 +1,83 @@
+While testing a component, if we have functions related to browser like
+window.scrollTo etc they will not work in jsDOM as jsDOM will not have 
+window object. so we need to mock these functions.
+
+jest provides method called fn() in which we can define our mock function
+We can use this to simiulate the function behaviour.
+
+    add these functions as part of the global object.
+        -> global.<function we want to mock>
+
+    Example: window.scrollTo() throws an error
+             so create a mock function.
+
+             global.scrollTo=jest.fn()
+
+             fn() takes a callback fn as param. use this callback fn to write
+             simulation logic. 
+
+
+    Example2: fetch is limited to browser. so if we use fetch to fetch the api data
+              in our application then we need to mock the fetch method.
+
+
+              //fetch returns a promise and we apply .json method of the returned promise
+              to convert the ReadableStream to json which again returns a promise.
+
+              global.fetch=jest.fn(()=>{
+                return Promise.resolve({
+                    json:()=>Promise resolve(data) //create a js file in mocks and export mockData
+                })
+              })
+
+    Example 3: mocking axios.get method
+               //get method returns a promise.
+               global.axios = {
+                                get: jest.fn(() => {
+                                    return Promise.resolve(data);
+                                }),
+                            };
+
+               or
+               
+               instead of writing promise we can directly send the data using mockResolvedValue method.
+               global.axios={
+                get:jest.fn().mockResolvedValue({data})
+               }
+
+Testing if shimmer is loading when we are fetching the data.
+    check for shimmer component and to test if shimmer is working as expected,
+    we can check the count of shimmer children [ shimmer cards ] as we created 10 card components.
+    
+    or
+
+    we can just check if shimmer is present in the current document using
+    .toBeInTheDocument() method which is provided by @testing-library/jest-dom
+
+
+Suppose we are testing for the totalRestaurants data in the body component or
+for the RestaurantCard component to render. which takes some time to render
+as we need to fetch the data from an api and then render the data.
+
+    we need to wait for the component to render. so while testing the component,
+    we can use waitFor() method which is provided by RTL.
+
+    waitFor() takes a callback fn in which we can write our testing logic.
+    This will wait until the element renders.
+    Along with callback fn, we can pass an optional second argument which is an object.
+    we can pass timeout/inmterval properties in this object.
+    default values will be 50ms for interval and 1000ms for timeout.
+
+    tests will be called for every 50ms upto 1000ms.
+
+        only use this if the async component we are testing will take
+        more than 1000ms.
+
+        Example: await waitFor(()=>{expect(body.getByTestId('searchBtn'))})
+                 waiting for searchBtn to render in the body component.
+
+        Example2: await waitFor(()=>{expect(body.getByTestId('resList))},{timeout:5000})
+
+    Beacuse we are using await, we need to add async to our test method callback fn.
+
+just like .toBe() we can also use .not.toBe() to check if value isnt equal to value provided.

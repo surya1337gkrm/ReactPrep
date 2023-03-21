@@ -1,0 +1,59 @@
+Just like how we did test testing for js functions, we can use jest/RTL to
+test our React Components. In order to write test cases for our react 
+Components, We need to make few configurations in our .babelrc file.
+
+    -> add this to .babelrc file 
+       ["@babel/preset-react", { "runtime": "automatic" }]
+    and install @babel/preset-react package as dev dependency.
+
+To write test cases for a react component, import the component to the test file.
+
+RTL provides a method called - render() which can be used to render components in js dom.
+
+jsdom cannot render images. so if the component has any images then we need
+to mock the images so that jsdom can understand and render the component.
+
+    in order to mock, create a mocks folder. and create a js file
+    -> in the js file, export a string as a default export.
+
+    and now we need to map images to this dummyImage mock we created.
+    -> In jest.config.js file, we need to use moduleNameMapper property.
+       Add the key valeu pair in moduleNameMapper object.
+
+       '\\.(png|jpg|jpeg|svg)$': '../mocks/dummyImage.js'
+
+       a regular expression that checks for .png/.jpg/.jpeg/.svg and
+       maps the dummy js file we created inside mocks directory.
+
+-> Because we are using Redux store data in our header component we need to
+   get the store data in order to render the Header in jsdom. or we will get an error.
+
+   Import provider & store and wrap the header component with the Provider.
+
+-> Also bcoz we are using Link for routing in header component. 
+   We need to wrap our component with a router.
+
+   Since, we are rendering the component in jsDom, we cant use browserRouter like
+   we used in our react component. So, we need to use staticRouter provided by
+   react-router-dom/server library.
+
+   import StaticRouter component and wrap the components we need to test.
+
+Now if we run the tests, tests will succeed but we didn't test anything so far.
+Now we need to write an expect method to test the component.
+
+
+In browser, we can get access to any element using document.getElementById/className/tagName
+but here we are rendering the component in jsDOM, so we need to add data attribute to our jsx
+to access the element. jest accesses the element by using .getByTestId/.getAllByTestId methods.
+
+    -> add data-testid attribute with a value to the element we want to grab in testing.
+
+getByTestId returns single object where as getAllByTestId returns an array even if there's a single element.
+
+after fetching the logo element, write a expect method to check if it has a src attribute mapped to
+the string we exported from the mock dummyImage.js file.
+
+Simillarly, if we want to check if the header component has cart items set to 0 when 
+the component initially renders, follow the same process as above and instead of src attribute check for 
+innerHTML property and check if thhe values matches to "0".

@@ -87,3 +87,9 @@ When using useSelector always filter out [ or subscribe] to specific slice/ part
 when we subscribe component will be rerendered whenever there's a change in the store/slice/part of the slice.
 if we susbcribed to the unnecessary data part of the store, our component rerenders even if we aren't 
 using thata data which affects the app's performance.
+
+________________________________________________________
+
+Wrap the RouterProvider component that we render in the root with the Provider component
+so that if there's an error, and if we need to display some data from the store in the 
+Error component, application will not break and displays the required data.

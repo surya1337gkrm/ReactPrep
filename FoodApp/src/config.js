@@ -813,7 +813,7 @@ initialize tailwindcss by running the below command - npx tailwindcss init
   ____________________________________________________________________________________
   
   `,
-  lazyLoading: `Generally, Bundlers will bundle all the available code/components
+  lazy_Loading: `Generally, Bundlers will bundle all the available code/components
    into a single JS bundle and send to the client to render the
   application and If we have a very large application with too many components & business logic involved,
   Out bundle size will grow eventually and it will take more time load the application.
@@ -985,8 +985,13 @@ initialize tailwindcss by running the below command - npx tailwindcss init
   When using useSelector always filter out [ or subscribe] to specific slice/ part of the slice as
   when we subscribe component will be rerendered whenever there's a change in the store/slice/part of the slice.
   if we susbcribed to the unnecessary data part of the store, our component rerenders even if we aren't 
-  using thata data which affects the app's performance.`,
-  reduxThunk: `By default, redux action creator expects a action type string and a payload. 
+  using thata data which affects the app's performance.
+  ________________________________________________________
+  
+  Wrap the RouterProvider component that we render in the root with the Provider component
+  so that if there's an error, and if we need to display some data from the store in the 
+  Error component, application will not break and displays the required data.`,
+  redux_Thunk: `By default, redux action creator expects a action type string and a payload. 
   Anything part from these will throw an error.
   
   So, if we need to fetch data from an api and store in redux store we need to
@@ -1019,4 +1024,237 @@ initialize tailwindcss by running the below command - npx tailwindcss init
   ______________________________________________________________________________________________________
   
   In the component you want to use this data, import the action and in dispatch method call this action method.`,
+  testing_Setup: `As a developer, we need to take care of Unit & Integration testing.
+  For that we need to use React-testing-Library and Jest [ RTL used jest in background]
+  
+      npm i -D @testing-library/react
+      npm i -D jest
+  
+  Now we need to initialise jest
+      run the below command to initiate jest
+          npx jest --init
+      and follow the configuration prompts[ choose jsdom & babel ].
+  
+  install jest-environment-jsdom [ missing dependency]
+  
+  -> Upon installing all required libraries and configured jest
+     on running 'npm run jest' command, We shouldn't get an error
+     as we didnt define any tests yet.
+  
+  We can create test files in two ways.
+  
+      Create a folder with exact name '__tests__' and include the test files [ js/ts]
+      Any file[js/ts] inside this folder, jest will consider them as test files.
+      or
+      Create test files with the mentioned format.
+          <filename>.[spec or test].[js or ts or jsx/tsx]
+  
+  As a standard practise, we will create __tests__ folder and 
+  include or test files with .test.js format.
+  
+  We use jsdom as a dependency, bcoz we are not running our tests in a browser.
+jsdom will be used to create a headless browser environment where our 
+tests will be executed by jest in a browser like environment using jsdom.
+This will be significantly faster compared to checking in browser as Here
+we dont need to complex dom painting operations.`,
+  js_Testing: `Writing Our First Test case.
+
+Inside the test file, we need to import the functions we want 
+to test and use test() method.
+
+test method is provided by jest and it takes two params.
+    a string to identify the test and a callback fn.
+
+    without writing anything insdie the callback fn and running the tests
+    will result in a success case. As test fn isn't expecting anything.
+
+Every testcase should have an expectation [ Assertion ].
+We need to use expect() method provided by jest inside callback fn.
+
+    Example: expect(sum(2,5)).toBe(7)
+             -> Here, we are testing sum fn to return '7' when 2,5 passed as args.
+
+Unlike react files, we can't import anything inside test files directly using import statements.
+We need to configure jest with babel in order to use import statements in test files.
+
+    -> TO configure babel with jest, we need to install few packages as dev dependencies.
+
+       npm i -D babel-jest @babel/core @babel/preset-env
+
+    -> After Installing, we need to configure babel [ either use babel.config.js / .babelrc file ]
+       
+       Add the below line in .babelrc file.
+        -> {
+            "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]]
+            }`,
+  testing_Basics: `Just like how we did test testing for js functions, we can use jest/RTL to
+  test our React Components. In order to write test cases for our react 
+  Components, We need to make few configurations in our .babelrc file.
+  
+      -> add this to .babelrc file 
+         ["@babel/preset-react", { "runtime": "automatic" }]
+      and install @babel/preset-react package as dev dependency.
+  
+  To write test cases for a react component, import the component to the test file.
+  
+  RTL provides a method called - render() which can be used to render components in js dom.
+  
+  jsdom cannot render images. so if the component has any images then we need
+  to mock the images so that jsdom can understand and render the component.
+  
+      in order to mock, create a mocks folder. and create a js file
+      -> in the js file, export a string as a default export.
+  
+      and now we need to map images to this dummyImage mock we created.
+      -> In jest.config.js file, we need to use moduleNameMapper property.
+         Add the key valeu pair in moduleNameMapper object.
+  
+         '\\.(png|jpg|jpeg|svg)$': '../mocks/dummyImage.js'
+  
+         a regular expression that checks for .png/.jpg/.jpeg/.svg and
+         maps the dummy js file we created inside mocks directory.
+  
+  -> Because we are using Redux store data in our header component we need to
+     get the store data in order to render the Header in jsdom. or we will get an error.
+  
+     Import provider & store and wrap the header component with the Provider.
+  
+  -> Also bcoz we are using Link for routing in header component. 
+     We need to wrap our component with a router.
+  
+     Since, we are rendering the component in jsDom, we cant use browserRouter like
+     we used in our react component. So, we need to use staticRouter provided by
+     react-router-dom/server library.
+  
+     import StaticRouter component and wrap the components we need to test.
+  
+  Now if we run the tests, tests will succeed but we didn't test anything so far.
+  Now we need to write an expect method to test the component.
+  
+  
+  In browser, we can get access to any element using document.getElementById/className/tagName
+  but here we are rendering the component in jsDOM, so we need to add data attribute to our jsx
+  to access the element. jest accesses the element by using .getByTestId/.getAllByTestId methods.
+  
+      -> add data-testid attribute with a value to the element we want to grab in testing.
+  
+  getByTestId returns single object where as getAllByTestId returns an array even if there's a single element.
+  
+  after fetching the logo element, write a expect method to check if it has a src attribute mapped to
+  the string we exported from the mock dummyImage.js file.
+  
+  Simillarly, if we want to check if the header component has cart items set to 0 when 
+  the component initially renders, follow the same process as above and instead of src attribute check for 
+  innerHTML property and check if thhe values matches to "0".
+  `,
+  testing_Advanced: `While testing a component, if we have functions related to browser like
+  window.scrollTo etc they will not work in jsDOM as jsDOM will not have 
+  window object. so we need to mock these functions.
+  
+  jest provides method called fn() in which we can define our mock function
+  We can use this to simiulate the function behaviour.
+  
+      add these functions as part of the global object.
+          -> global.<function we want to mock>
+  
+      Example: window.scrollTo() throws an error
+               so create a mock function.
+  
+               global.scrollTo=jest.fn()
+  
+               fn() takes a callback fn as param. use this callback fn to write
+               simulation logic. 
+  
+  
+      Example2: fetch is limited to browser. so if we use fetch to fetch the api data
+                in our application then we need to mock the fetch method.
+  
+  
+                //fetch returns a promise and we apply .json method of the returned promise
+                to convert the ReadableStream to json which again returns a promise.
+  
+                global.fetch=jest.fn(()=>{
+                  return Promise.resolve({
+                      json:()=>Promise resolve(data) //create a js file in mocks and export mockData
+                  })
+                })
+  
+      Example 3: mocking axios.get method
+                 //get method returns a promise.
+                 global.axios = {
+                                  get: jest.fn(() => {
+                                      return Promise.resolve(data);
+                                  }),
+                              };
+  
+                 or
+                 
+                 instead of writing promise we can directly send the data using mockResolvedValue method.
+                 global.axios={
+                  get:jest.fn().mockResolvedValue({data})
+                 }
+  
+  Testing if shimmer is loading when we are fetching the data.
+      check for shimmer component and to test if shimmer is working as expected,
+      we can check the count of shimmer children [ shimmer cards ] as we created 10 card components.
+      
+      or
+  
+      we can just check if shimmer is present in the current document using
+      .toBeInTheDocument() method which is provided by @testing-library/jest-dom
+  
+  
+  Suppose we are testing for the totalRestaurants data in the body component or
+  for the RestaurantCard component to render. which takes some time to render
+  as we need to fetch the data from an api and then render the data.
+  
+      we need to wait for the component to render. so while testing the component,
+      we can use waitFor() method which is provided by RTL.
+  
+      waitFor() takes a callback fn in which we can write our testing logic.
+      This will wait until the element renders.
+      Along with callback fn, we can pass an optional second argument which is an object.
+      we can pass timeout/inmterval properties in this object.
+      default values will be 50ms for interval and 1000ms for timeout.
+  
+      tests will be called for every 50ms upto 1000ms.
+  
+          only use this if the async component we are testing will take
+          more than 1000ms.
+  
+          Example: await waitFor(()=>{expect(body.getByTestId('searchBtn'))})
+                   waiting for searchBtn to render in the body component.
+  
+          Example2: await waitFor(()=>{expect(body.getByTestId('resList))},{timeout:5000})
+  
+      Beacuse we are using await, we need to add async to our test method callback fn.
+  
+  just like .toBe() we can also use .not.toBe() to check if value isnt equal to value provided.`,
+  testingFinal: `So far we are just testing for the component to render and 
+  writing our test cases based on the UI elements.
+  
+  Now we have to write test cases for the events that are fired from 
+  our components like typing/onChange/onClick etc.
+  
+  If we have a text box and if we need to mock typing data in text field,
+  we need to fire a typing/onChange event. RTL provided fireEvent method.
+  
+      to fire an change event, use change method present on the fireEvent method
+      fireEvent.change(<target element>,{})
+  
+      in our case target element will be our search input element.
+      and like in our synthetic event onChange we receive value on changing 
+      from event.target.value. so we need to simulate that.
+  
+          fireEvent.change(<target element>,{target:{
+              value:{"Value we want to search"}
+          }})
+  
+      
+      simillarly, to fire a click event:
+          fireEvent.click() can be used.
+  
+          fireEvent.click(searchBtn)
+  
+  `,
 };

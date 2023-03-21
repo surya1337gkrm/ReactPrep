@@ -1,0 +1,30 @@
+Writing Our First Test case.
+
+Inside the test file, we need to import the functions we want 
+to test and use test() method.
+
+test method is provided by jest and it takes two params.
+    a string to identify the test and a callback fn.
+
+    without writing anything insdie the callback fn and running the tests
+    will result in a success case. As test fn isn't expecting anything.
+
+Every testcase should have an expectation [ Assertion ].
+We need to use expect() method provided by jest inside callback fn.
+
+    Example: expect(sum(2,5)).toBe(7)
+             -> Here, we are testing sum fn to return '7' when 2,5 passed as args.
+
+Unlike react files, we can't import anything inside test files directly using import statements.
+We need to configure jest with babel in order to use import statements in test files.
+
+    -> TO configure babel with jest, we need to install few packages as dev dependencies.
+
+       npm i -D babel-jest @babel/core @babel/preset-env
+
+    -> After Installing, we need to configure babel [ either use babel.config.js / .babelrc file ]
+       
+       Add the below line in .babelrc file.
+        -> {
+            "presets": [["@babel/preset-env", { "targets": { "node": "current" } }]]
+            }

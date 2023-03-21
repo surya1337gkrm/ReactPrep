@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import RestaurantCard from './RestaurantCard';
-import { mainUrl, restaurantList } from '../config';
+import { mainUrl } from '../config';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Shimmer from './shimmer';
@@ -40,6 +40,9 @@ const Body = () => {
     getData();
   }, []);
 
+  if (filteredRestaurants.length === 0 || allRestaurants.length === 0)
+    return <Shimmer />;
+
   return (
     <>
       <div className='flex justify-center p-2 bg-white my-2 w-full'>
@@ -50,26 +53,30 @@ const Body = () => {
           className='rounded-md bg-gray-200 p-1 focus:outline-none'
           value={searchText}
           onChange={(e) => handleChange(e)}
+          data-testid='searchInput'
         />
         <button
           className='px-2 mx-1 bg-orange-500 text-white rounded hover:bg-green-800'
           onClick={() => {
             setFilteredRestaurants(filterData(searchText, allRestaurants));
             // setSearchText('');
-          }}>
+          }}
+          data-testid='searchBtn'>
           Search
         </button>
       </div>
       {total !== 0 ? (
         <>
-          <h1 className='font-bold text-2xl px-5 mx-5'>{total} Restaurants</h1>
+          <h1 className='font-bold text-2xl px-5 mx-5' data-testid='totalRes'>
+            {total} Restaurants
+          </h1>
           <hr className='border-gray-400 w-auto mx-5' />
         </>
       ) : (
         <></>
       )}
       {allRestaurants.length !== 0 ? (
-        <div className='flex flex-wrap gap-5 pl-5 m-5'>
+        <div className='flex flex-wrap gap-5 pl-5 m-5' data-testid='resList'>
           {filteredRestaurants.length !== 0 ? (
             //add link to each card with path to slug and also pass id to card as prop to send req to the restaurant menu endpoint
             filteredRestaurants.map((restaurant) => (

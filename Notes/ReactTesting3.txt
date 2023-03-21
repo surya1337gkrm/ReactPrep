@@ -1,0 +1,26 @@
+So far we are just testing for the component to render and 
+writing our test cases based on the UI elements.
+
+Now we have to write test cases for the events that are fired from 
+our components like typing/onChange/onClick etc.
+
+If we have a text box and if we need to mock typing data in text field,
+we need to fire a typing/onChange event. RTL provided fireEvent method.
+
+    to fire an change event, use change method present on the fireEvent method
+    fireEvent.change(<target element>,{})
+
+    in our case target element will be our search input element.
+    and like in our synthetic event onChange we receive value on changing 
+    from event.target.value. so we need to simulate that.
+
+        fireEvent.change(<target element>,{target:{
+            value:{"Value we want to search"}
+        }})
+
+    
+    simillarly, to fire a click event:
+        fireEvent.click() can be used.
+
+        fireEvent.click(searchBtn)
+

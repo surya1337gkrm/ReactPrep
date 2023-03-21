@@ -9,7 +9,6 @@ const useRestaurant = (menuId) => {
 
   async function getRestaurantData() {
     const { data } = await axios.get(menuUrl + menuId);
-    console.log(data?.data);
     setMenuData(data?.data);
   }
   return menuData;

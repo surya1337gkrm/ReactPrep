@@ -1,0 +1,37 @@
+As a developer, we need to take care of Unit & Integration testing.
+For that we need to use React-testing-Library and Jest [ RTL used jest in background]
+
+    npm i -D @testing-library/react
+    npm i -D jest
+
+Now we need to initialise jest
+    run the below command to initiate jest
+        npx jest --init
+    and follow the configuration prompts[ choose jsdom & babel ].
+
+install jest-environment-jsdom [ missing dependency]
+
+-> Upon installing all required libraries and configured jest
+   on running 'npm run jest' command, We shouldn't get an error
+   as we didnt define any tests yet.
+
+-> In order to auto-run the test command add the following config to package.json file 
+    -> in scripts property
+        add 'watch-tests':'jest --watch'
+
+We can create test files in two ways.
+
+    Create a folder with exact name '__tests__' and include the test files [ js/ts]
+    Any file[js/ts] inside this folder, jest will consider them as test files.
+    or
+    Create test files with the mentioned format.
+        <filename>.[spec or test].[js or ts or jsx/tsx]
+
+As a standard practise, we will create __tests__ folder and 
+include or test files with .test.js format.
+
+We use jsdom as a dependency, bcoz we are not running our tests in a browser.
+jsdom will be used to create a headless browser environment where our 
+tests will be executed by jest in a browser like environment using jsdom.
+This will be significantly faster compared to checking in browser as Here
+we dont need to complex dom painting operations.
