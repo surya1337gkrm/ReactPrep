@@ -66,7 +66,9 @@ function Contact() {
               Open
             </button>
           )}
-          <h1 className='font-bold text-3xl'>{keyVal.toUpperCase()}</h1>
+          <h1 className='font-bold text-3xl'>
+            {keyVal.split('_').join(' ').toUpperCase()}
+          </h1>
           <br />
           <pre
             className={`whitespace-pre-wrap break-words ${

@@ -622,6 +622,24 @@ Using index might result in performance issues and data binding issues in case
 
 _________________________________________________________________
 `,
+  environment_Variables: `unlike nodejs/express, we don't need to install/require
+'dotenv' library in our react application to read environment
+variables.
+
+in order to store and read environment variables [ helps us to 
+hide sensitive information ] in react, create a .env file in the
+root directory and store the data as key value pairs.
+
+in create-react-app, values stored in .env should have the key value
+starting with REACT_APP_<Varialble name>
+
+    Example: REACT_APP_YOUTUBE_API_KEY='KEY VALUE'
+
+TO read this value in our component/application,
+we need access this variable using process.env
+
+    Example: process.env.REACT_APP_YOUTUBE_API_KEY
+`,
   exports: `- A component can be exported in two ways. 
 Named Export & Default export
 
@@ -1230,7 +1248,7 @@ We need to configure jest with babel in order to use import statements in test f
       Beacuse we are using await, we need to add async to our test method callback fn.
   
   just like .toBe() we can also use .not.toBe() to check if value isnt equal to value provided.`,
-  testingFinal: `So far we are just testing for the component to render and 
+  testing_Final: `So far we are just testing for the component to render and 
   writing our test cases based on the UI elements.
   
   Now we have to write test cases for the events that are fired from 
