@@ -1048,6 +1048,9 @@ initialize tailwindcss by running the below command - npx tailwindcss init
       npm i -D @testing-library/react
       npm i -D jest
   
+      add the below key value pair to the scripts part of the package.json
+          "test": "jest"
+  
   Now we need to initialise jest
       run the below command to initiate jest
           npx jest --init
@@ -1056,8 +1059,12 @@ initialize tailwindcss by running the below command - npx tailwindcss init
   install jest-environment-jsdom [ missing dependency]
   
   -> Upon installing all required libraries and configured jest
-     on running 'npm run jest' command, We shouldn't get an error
+     on running 'npm run test' command, We shouldn't get an error
      as we didnt define any tests yet.
+  
+  -> In order to auto-run the test command add the following config to package.json file 
+      -> in scripts property
+          add 'watch-tests':'jest --watch'
   
   We can create test files in two ways.
   
@@ -1071,10 +1078,10 @@ initialize tailwindcss by running the below command - npx tailwindcss init
   include or test files with .test.js format.
   
   We use jsdom as a dependency, bcoz we are not running our tests in a browser.
-jsdom will be used to create a headless browser environment where our 
-tests will be executed by jest in a browser like environment using jsdom.
-This will be significantly faster compared to checking in browser as Here
-we dont need to complex dom painting operations.`,
+  jsdom will be used to create a headless browser environment where our 
+  tests will be executed by jest in a browser like environment using jsdom.
+  This will be significantly faster compared to checking in browser as Here
+  we dont need to complex dom painting operations.`,
   js_Testing: `Writing Our First Test case.
 
 Inside the test file, we need to import the functions we want 

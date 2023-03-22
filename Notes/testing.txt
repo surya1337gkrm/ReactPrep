@@ -4,6 +4,9 @@ For that we need to use React-testing-Library and Jest [ RTL used jest in backgr
     npm i -D @testing-library/react
     npm i -D jest
 
+    add the below key value pair to the scripts part of the package.json
+        "test": "jest"
+
 Now we need to initialise jest
     run the below command to initiate jest
         npx jest --init
@@ -12,7 +15,7 @@ Now we need to initialise jest
 install jest-environment-jsdom [ missing dependency]
 
 -> Upon installing all required libraries and configured jest
-   on running 'npm run jest' command, We shouldn't get an error
+   on running 'npm run test' command, We shouldn't get an error
    as we didnt define any tests yet.
 
 -> In order to auto-run the test command add the following config to package.json file 
