@@ -561,7 +561,8 @@ export const menuUrl = 'https://mockapi-swiggy.onrender.com/api/menu/';
 export const emptyCartURl =
   'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0';
 
-const mockApiRailwayURL = 'https://mockapi-swiggy.up.railway.app/api';
+export const mainUrl2 = 'https://mockapi-swiggy.up.railway.app/api';
+export const menuApiURL = 'https://mockapi-swiggy.up.railway.app/api/menu/';
 
 export const docsData = {
   info: `TreeShaking: Bundlers will remove the unnecessary code in out application 
@@ -1081,7 +1082,17 @@ initialize tailwindcss by running the below command - npx tailwindcss init
   jsdom will be used to create a headless browser environment where our 
   tests will be executed by jest in a browser like environment using jsdom.
   This will be significantly faster compared to checking in browser as Here
-  we dont need to complex dom painting operations.`,
+  we dont need to complex dom painting operations.
+  
+  use jest runner vsCode extension to run each tests individually
+  in the vsCode instead of manually running the npm run test command.
+  
+  To view complete testing coverage report, run 'npm run test' command
+  and this will generate 'coverage' directory. 
+  
+      go to coverage ->Icov-report -> src and copy path to the index.html
+  
+  Now paste this path in the chrome/browser to view detailed coverage report.`,
   js_Testing: `Writing Our First Test case.
 
 Inside the test file, we need to import the functions we want 
@@ -1123,6 +1134,15 @@ We need to configure jest with babel in order to use import statements in test f
   To write test cases for a react component, import the component to the test file.
   
   RTL provides a method called - render() which can be used to render components in js dom.
+  
+  render() method returns an object and rendered html will be
+  present in the container property.
+  
+  if we want to debug and check for rendered html, we can use
+  screen.debug() method to view the html.
+  
+     Example: const {container}=render(<Body/>)
+              screen.debug(container)
   
   jsdom cannot render images. so if the component has any images then we need
   to mock the images so that jsdom can understand and render the component.

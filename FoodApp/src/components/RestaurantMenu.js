@@ -16,8 +16,9 @@ function RestaurantMenu() {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  });
+  }, []);
 
+  console.log(menuData?.cards);
   //early-return
   return menuData ? (
     <div className='lg:flex'>

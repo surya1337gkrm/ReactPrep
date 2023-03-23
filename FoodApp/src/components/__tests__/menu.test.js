@@ -23,5 +23,5 @@ test('Testing : clicking Add Button updates cart', async () => {
       </Provider>
     </StaticRouter>
   );
-  await waitFor()
+  
 });

@@ -10,6 +10,15 @@ To write test cases for a react component, import the component to the test file
 
 RTL provides a method called - render() which can be used to render components in js dom.
 
+render() method returns an object and rendered html will be
+present in the container property.
+
+if we want to debug and check for rendered html, we can use
+screen.debug() method to view the html.
+
+   Example: const {container}=render(<Body/>)
+            screen.debug(container)
+
 jsdom cannot render images. so if the component has any images then we need
 to mock the images so that jsdom can understand and render the component.
 
@@ -57,3 +66,4 @@ the string we exported from the mock dummyImage.js file.
 Simillarly, if we want to check if the header component has cart items set to 0 when 
 the component initially renders, follow the same process as above and instead of src attribute check for 
 innerHTML property and check if thhe values matches to "0".
+

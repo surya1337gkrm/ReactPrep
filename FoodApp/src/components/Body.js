@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import RestaurantCard from './RestaurantCard';
-import { mainUrl } from '../config';
+import { mainUrl,mainUrl2 } from '../config';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Shimmer from './shimmer';
@@ -19,7 +19,7 @@ const Body = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        mainUrl
+        mainUrl2
         //'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING'
       );
       setAllRestaurants(

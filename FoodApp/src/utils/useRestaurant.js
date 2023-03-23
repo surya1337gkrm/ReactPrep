@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { menuUrl } from '../config';
+import { menuUrl,menuApiURL } from '../config';
 const useRestaurant = (menuId) => {
   const [menuData, setMenuData] = useState(null);
   useEffect(() => {
@@ -8,7 +8,7 @@ const useRestaurant = (menuId) => {
   }, []);
 
   async function getRestaurantData() {
-    const { data } = await axios.get(menuUrl + menuId);
+    const { data } = await axios.get(menuApiURL + menuId);
     setMenuData(data?.data);
   }
   return menuData;

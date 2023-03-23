@@ -38,3 +38,13 @@ jsdom will be used to create a headless browser environment where our
 tests will be executed by jest in a browser like environment using jsdom.
 This will be significantly faster compared to checking in browser as Here
 we dont need to complex dom painting operations.
+
+use jest runner vsCode extension to run each tests individually
+in the vsCode instead of manually running the npm run test command.
+
+To view complete testing coverage report, run 'npm run test' command
+and this will generate 'coverage' directory. 
+
+    go to coverage ->Icov-report -> src and copy path to the index.html
+
+Now paste this path in the chrome/browser to view detailed coverage report.

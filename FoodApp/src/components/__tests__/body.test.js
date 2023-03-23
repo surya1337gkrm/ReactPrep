@@ -41,13 +41,12 @@ test('Testing for Restaurant Cards', async () => {
     </StaticRouter>
   );
 
-  await waitFor(
-    () => {
-      const resNode = body.getByTestId('resList');
-      expect(resNode.children.length).not.toBe(0);
-    },
-    { timeout: 5000 }
-  );
+  screen.debug(body.container);
+
+  await waitFor(() => {
+    const resNode = body.getByTestId('resList');
+    expect(resNode.children.length).not.toBe(0);
+  });
 });
 
 test('Searching for Pizza', async () => {
@@ -59,20 +58,23 @@ test('Searching for Pizza', async () => {
     </StaticRouter>
   );
 
-  await waitFor(
-    () => {
-      const searchInput = body.getByTestId('searchInput');
-      const searchBtn = body.getByTestId('searchBtn');
+  await waitFor(() => {
+    const resNode = body.getByTestId('resList');
+    // expect(resNode.children.length).not.toBe(0);
+    const searchInput = body.getByTestId('searchInput');
+    const searchBtn = body.getByTestId('searchBtn');
 
-      fireEvent.change(searchInput, {
-        target: {
-          value: 'Pizza',
-        },
-      });
-      fireEvent.click(searchBtn)
-      const resNode = body.getByTestId('resList');
-      expect(resNode.children.length).toBe(2)
-    },
-    { timeout: 5000 }
-  );
+    fireEvent.change(searchInput, {
+      target: {
+        value: 'Pizza',
+      },
+    });
+
+    fireEvent.click(searchBtn);
+  });
+
+  await waitFor(() => {
+    const resNodes = body.getByTestId('resList');
+    expect(resNodes.children.length).toBe(2);
+  });
 });
