@@ -19,7 +19,7 @@ const Body = () => {
   const getData = async () => {
     try {
       const { data } = await axios.get(
-        mainUrl2
+        mainUrl
         //'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING'
       );
       setAllRestaurants(

@@ -8,7 +8,13 @@ const RestaurantCard = ({
 }) => {
   return (
     <div className='w-[250px] p-2 m-2 shadow-lg rounded bg-white h-full hover:border-2 border-gray-300 hover:scale-105 ease-in-out duration-300'>
-      <img src={IMG_CDN_URL + cloudinaryImageId} alt={name} />
+      <div className='overflow-hidden '>
+        <img
+          src={IMG_CDN_URL + cloudinaryImageId}
+          alt={name}
+          className='max-w-full ease-in-out duration-700 hover:scale-125'
+        />
+      </div>
       <h2 className='font-bold'>{name}</h2>
       <small className='opacity-60'>{cuisines.join(', ')}</small>
       <p className='flex bg-orange-500 w-14 px-2 mt-1 text-white justify-center items-center'>

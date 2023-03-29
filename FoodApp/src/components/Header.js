@@ -60,7 +60,9 @@ const Header = () => {
               to='/cart'
               className='hover:font-bold active:font-bold focus:outline-none focus:font-bold'>
               Cart{' '}
-              <span className='bg-orange-500 text-white text-center px-2 w-auto h-auto' data-testid='cart'>
+              <span
+                className='bg-orange-500 text-white text-center px-2 w-auto h-auto'
+                data-testid='cart'>
                 {cartItems.length}
               </span>
             </Link>
