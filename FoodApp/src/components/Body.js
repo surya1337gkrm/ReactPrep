@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import RestaurantCard from './RestaurantCard';
-import { mainUrl,mainUrl2 } from '../config';
+import { mainUrl, mainUrl2 } from '../config';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import Shimmer from './shimmer';
@@ -12,32 +12,54 @@ const Body = () => {
   const [allRestaurants, setAllRestaurants] = useState([]);
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [total, setTotal] = useState(0);
+  const [offset, setOffset] = useState(0);
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
   };
   const getData = async () => {
     try {
-      const { data } = await axios.get(
-        mainUrl
-        //'https://corsanywhere.herokuapp.com/https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING'
-      );
-      setAllRestaurants(
-        data?.data?.cards[2]?.data?.data?.cards ||
-          data?.data?.cards[1]?.data?.data?.cards
-      );
-      setFilteredRestaurants(
-        data?.data?.cards[2]?.data?.data?.cards ||
-          data?.data?.cards[1]?.data?.data?.cards
-      );
-      setTotal(data?.data?.cards[2]?.data?.data?.totalOpenRestaurants);
+      const { data } = await axios.get(`${mainUrl}?offset=${offset}`);
+      setAllRestaurants((prevData) => [
+        ...prevData,
+        ...data?.data?.cards.map((res) => res.data),
+      ]);
+      setFilteredRestaurants((prevData) => [
+        ...prevData,
+        ...data?.data?.cards.map((res) => res.data),
+      ]),
+        setTotal(data?.data?.totalSize);
     } catch (e) {
       console.log(e);
     }
   };
   useEffect(() => {
     window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
     getData();
+  }, [offset]);
+
+  const handleScroll = () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+        document.documentElement.scrollHeight &&
+      total - offset >= 0
+    ) {
+      setOffset((prevOffset) => {
+        if (prevOffset === 0) return 15;
+        return prevOffset + 16;
+      });
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    // return () => {
+    //   window.removeEventListener('scroll', handleScroll);
+    // };
   }, []);
 
   if (filteredRestaurants.length === 0 || allRestaurants.length === 0)
@@ -72,17 +94,15 @@ const Body = () => {
           </h1>
           <hr className='border-gray-400 w-auto mx-5' />
         </>
-      ) : (
-        <></>
-      )}
+      ) : null}
       {allRestaurants.length !== 0 ? (
         <div className='flex flex-wrap gap-5 pl-5 m-5' data-testid='resList'>
           {filteredRestaurants.length !== 0 ? (
             //add link to each card with path to slug and also pass id to card as prop to send req to the restaurant menu endpoint
-            filteredRestaurants.map((restaurant) => (
+            filteredRestaurants.map((restaurant, idx) => (
               <Link
                 to={`/restaurant/${restaurant.data.id}`}
-                key={restaurant.data.id}>
+                key={restaurant.data.id + idx}>
                 <RestaurantCard {...restaurant.data} />
               </Link>
             ))

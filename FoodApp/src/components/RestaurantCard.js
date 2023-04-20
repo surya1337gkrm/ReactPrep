@@ -6,6 +6,7 @@ const RestaurantCard = ({
   avgRating,
   lastMileTravelString,
 }) => {
+  console.log()
   return (
     <div className='w-[250px] p-2 m-2 shadow-lg rounded bg-white h-full hover:border-2 border-gray-300 hover:scale-105 ease-in-out duration-300'>
       <div className='overflow-hidden '>
