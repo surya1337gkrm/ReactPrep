@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { docsData } from '../config';
 
 function Contact() {
@@ -7,6 +7,10 @@ function Contact() {
     Object.keys(docsData).forEach((keyVal) => (obj[keyVal] = false));
     obj.info = true;
     return obj;
+  });
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
   });
 
   const itemsRef = useRef(null);

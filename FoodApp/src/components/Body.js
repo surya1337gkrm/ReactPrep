@@ -13,12 +13,14 @@ const Body = () => {
   const [filteredRestaurants, setFilteredRestaurants] = useState([]);
   const [total, setTotal] = useState(0);
   const [offset, setOffset] = useState(0);
+  const [show, setShow] = useState(false);
 
   const handleChange = (e) => {
     setSearchText(e.target.value);
   };
   const getData = async () => {
     try {
+      setShow(true);
       const { data } = await axios.get(`${mainUrl}?offset=${offset}`);
       setAllRestaurants((prevData) => [
         ...prevData,
@@ -29,23 +31,16 @@ const Body = () => {
         ...data?.data?.cards.map((res) => res.data),
       ]),
         setTotal(data?.data?.totalSize);
+      setShow(false);
     } catch (e) {
       console.log(e);
     }
   };
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  useEffect(() => {
-    getData();
-  }, [offset]);
 
   const handleScroll = () => {
     if (
       window.innerHeight + document.documentElement.scrollTop + 1 >=
-        document.documentElement.scrollHeight &&
-      total - offset >= 0
+      document.documentElement.scrollHeight
     ) {
       setOffset((prevOffset) => {
         if (prevOffset === 0) return 15;
@@ -55,15 +50,55 @@ const Body = () => {
   };
 
   useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
+  useEffect(() => {
+    getData();
+  }, [offset]);
+
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
 
-    // return () => {
-    //   window.removeEventListener('scroll', handleScroll);
-    // };
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
   }, []);
 
   if (filteredRestaurants.length === 0 || allRestaurants.length === 0)
     return <Shimmer />;
+
+  let restaurantCards;
+
+  if (show) {
+    let cards = filteredRestaurants.map((restaurant, idx) => (
+      <Link
+        to={`/restaurant/${restaurant.data.id}`}
+        key={restaurant.data.id + idx}>
+        <RestaurantCard {...restaurant.data} />
+      </Link>
+    ));
+    shimmerCards = Array(10)
+      .fill('')
+      .map((el, idx) => (
+        <div
+          key={idx}
+          className='w-[250px] p-2 m-2 shadow-lg rounded bg-white h-full hover:border-2 border-gray-300 '>
+          <div className='m-5 p-5 w-[200] h-[200] bg-gray-200 shadow-md rounded animate-pulse'></div>
+          <div className='m-5 p-1 w-[150] h-0 bg-gray-200 animate-pulse'></div>
+          <div className='m-5 p-1 w-[100] h-0 bg-gray-200 animate-pulse'></div>
+        </div>
+      ));
+    restaurantCards = [...cards, ...shimmerCards];
+  } else {
+    restaurantCards = filteredRestaurants.map((restaurant, idx) => (
+      <Link
+        to={`/restaurant/${restaurant.data.id}`}
+        key={restaurant.data.id + idx}>
+        <RestaurantCard {...restaurant.data} />
+      </Link>
+    ));
+  }
 
   return (
     <>
@@ -99,16 +134,11 @@ const Body = () => {
         <div className='flex flex-wrap gap-5 pl-5 m-5' data-testid='resList'>
           {filteredRestaurants.length !== 0 ? (
             //add link to each card with path to slug and also pass id to card as prop to send req to the restaurant menu endpoint
-            filteredRestaurants.map((restaurant, idx) => (
-              <Link
-                to={`/restaurant/${restaurant.data.id}`}
-                key={restaurant.data.id + idx}>
-                <RestaurantCard {...restaurant.data} />
-              </Link>
-            ))
+            restaurantCards
           ) : (
             <>No Restaurants Found!</>
           )}
+          {show ? <Shimmer /> : null}
         </div>
       ) : (
         <Shimmer />

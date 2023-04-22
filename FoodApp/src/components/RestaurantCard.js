@@ -1,4 +1,20 @@
 import { IMG_CDN_URL } from '../config';
+import food from '../static/food2.png';
+
+const DummyImage = () => {
+  return (
+    <div className='overflow-hidden '>
+      <div className='flex w-[250px] h-[150px] bg-slate-100  justify-center items-center '>
+        <img
+          src={food}
+          alt={'Food App Logo'}
+          className='max-w-full ease-in-out duration-700 hover:scale-125 h-2/3 opacity-50'
+        />
+        {/* <p className='font-bold opacity-40'>Image Not Found</p> */}
+      </div>
+    </div>
+  );
+};
 const RestaurantCard = ({
   cloudinaryImageId,
   name,
@@ -6,16 +22,20 @@ const RestaurantCard = ({
   avgRating,
   lastMileTravelString,
 }) => {
-  console.log()
+  console.log();
   return (
     <div className='w-[250px] p-2 m-2 shadow-lg rounded bg-white h-full hover:border-2 border-gray-300 hover:scale-105 ease-in-out duration-300'>
-      <div className='overflow-hidden '>
-        <img
-          src={IMG_CDN_URL + cloudinaryImageId}
-          alt={name}
-          className='max-w-full ease-in-out duration-700 hover:scale-125'
-        />
-      </div>
+      {cloudinaryImageId ? (
+        <div className='overflow-hidden '>
+          <img
+            src={IMG_CDN_URL + cloudinaryImageId}
+            alt={name}
+            className='max-w-full ease-in-out duration-700 hover:scale-125'
+          />
+        </div>
+      ) : (
+        <DummyImage />
+      )}
       <h2 className='font-bold'>{name}</h2>
       <small className='opacity-60'>{cuisines.join(', ')}</small>
       <p className='flex bg-orange-500 w-14 px-2 mt-1 text-white justify-center items-center'>
