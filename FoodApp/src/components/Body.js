@@ -78,7 +78,7 @@ const Body = () => {
         <RestaurantCard {...restaurant.data} />
       </Link>
     ));
-    shimmerCards = Array(10)
+    let shimmerCards = Array(10)
       .fill('')
       .map((el, idx) => (
         <div
