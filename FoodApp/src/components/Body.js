@@ -54,7 +54,10 @@ const Body = () => {
   }, []);
 
   useEffect(() => {
-    getData();
+    console.log(total, offset);
+    if (total > offset + 16 || total===0) {
+      getData();
+    }
   }, [offset]);
 
   useEffect(() => {
@@ -83,10 +86,11 @@ const Body = () => {
       .map((el, idx) => (
         <div
           key={idx}
-          className='w-[250px] p-2 m-2 shadow-lg rounded bg-white h-full hover:border-2 border-gray-300 '>
-          <div className='m-5 p-5 w-[200] h-[200] bg-gray-200 shadow-md rounded animate-pulse'></div>
-          <div className='m-5 p-1 w-[150] h-0 bg-gray-200 animate-pulse'></div>
-          <div className='m-5 p-1 w-[100] h-0 bg-gray-200 animate-pulse'></div>
+          className='w-[250px] p-2 m-2 shadow-lg rounded bg-white hover:border-2 border-gray-300 '>
+          <div className='m-2 p-5 w-[220px] h-[150px] bg-gray-200 shadow-md rounded animate-pulse'></div>
+          <div className='mt-5 ml-2 p-1 w-[180px] h-0 bg-gray-200 animate-pulse'></div>
+          <div className='mt-2 ml-2 p-1 w-[150px] h-0 bg-gray-200 animate-pulse'></div>
+          <div className='mt-2 ml-2 mb-5 p-1 w-[120px] h-0 bg-gray-200 animate-pulse'></div>
         </div>
       ));
     restaurantCards = [...cards, ...shimmerCards];
