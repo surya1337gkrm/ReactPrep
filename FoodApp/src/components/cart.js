@@ -12,10 +12,10 @@ function Cart() {
   useEffect(() => {
     let total = 0;
     cart.forEach((item) => {
-      total += item.price;
+      total += item[item.id].price * item.q;
     });
     setCartTotal(total / 100);
-  });
+  }, []);
 
   return cart.length !== 0 ? (
     <div className='flex justify-center items-center '>
@@ -23,7 +23,7 @@ function Cart() {
         <h1 className='text-2xl font-bold py-2 my-2'>Cart</h1>
         {cart.map((item) => (
           <div key={item.id} className='bg-slate-100 shadow p-2 my-2'>
-            {item.name}
+            {item[item.id].name} X {item.q}
           </div>
         ))}
         Cart Total:

@@ -17,7 +17,11 @@ export const Title = () => (
 
 const Header = () => {
   const { user } = useContext(UserContext);
-  const cartItems = useSelector((state) => state.cart.items);
+  const cartItems = useSelector((state) =>
+    state.cart.items.reduce((total, item) => {
+      return total + item.q;
+    }, 0)
+  );
 
   return (
     <header
@@ -63,7 +67,7 @@ const Header = () => {
               <span
                 className='bg-orange-500 text-white text-center px-2 w-auto h-auto'
                 data-testid='cart'>
-                {cartItems.length}
+                {cartItems}
               </span>
             </Link>
           </li>

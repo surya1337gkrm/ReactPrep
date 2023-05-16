@@ -18,7 +18,15 @@ const cartSlice = createSlice({
   },
   reducers: {
     addItem: (state, action) => {
-      state.items.push(action.payload);
+      const ele = action.payload;
+      const itemIndex = state.items.findIndex(
+        (item) => item[ele.id] !== undefined
+      );
+      if (itemIndex === -1) {
+        state.items.push({ [ele.id]: ele, q: 1, id: ele.id });
+      } else {
+        state.items[itemIndex].q += 1;
+      }
     },
     removeItem: (state, action) => {
       //need to change the implementation

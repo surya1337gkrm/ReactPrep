@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import Shimmer from './shimmer';
@@ -14,33 +14,55 @@ function RestaurantMenu() {
   const menuData = useRestaurant(params.menuId);
   const dispatch = useDispatch();
 
+  const restInfo = menuData?.cards[0].card.card.info;
+  const offersInfo = menuData?.cards[1];
+  const menu =
+    menuData?.cards[2].groupedCard.cardGroupMap.REGULAR.cards.slice(1);
+
+  console.log(menu);
+
+  let menuItems;
+  if (menu) {
+    menuItems = menu
+      .map((el) => {
+        let res;
+        if (el.card.card.itemCards) {
+          res = el.card.card.itemCards;
+        } 
+        return res;
+      })
+      .filter(Boolean)
+      .flat();
+  }
+
+  console.log(menuItems);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  console.log(menuData?.cards);
   //early-return
   return menuData ? (
     <div className='lg:flex'>
       <div className='flex justify-center w-full h-fit px-5 mx-5 bg-white z-40 md:sticky top-28 lg:max-w-md'>
         <img
-          src={IMG_CDN_URL + menuData.cloudinaryImageId}
-          alt={menuData.name}
+          src={IMG_CDN_URL + restInfo.cloudinaryImageId}
+          alt={restInfo.name}
           loading='lazy'
           className='w-[200px] h-[200px] object-contain mx-2 p-1 f'
         />
         <div className='m-5 p-5'>
-          <h1 className='font-bold text-3xl'>{menuData.name}</h1>
-          <p className='opacity-50'>{menuData.cuisines.join(', ')}</p>
+          <h1 className='font-bold text-3xl'>{restInfo.name}</h1>
+          <p className='opacity-50'>{restInfo.cuisines.join(', ')}</p>
           <p className='opacity-50'>
-            {menuData.area}, {menuData.city}
+            {restInfo.areaName}, {restInfo.city}
           </p>
           <small className='font-bold py-2 my-2'>
-            {menuData.costForTwoMsg}
+            {restInfo.costForTwoMessage}
           </small>
           <br />
           <p className='flex'>
-            {menuData.avgRatingString}
+            {restInfo.avgRatingString}
             <span className='mt-1 pt-[0.2rem] pl-1'>
               <svg
                 xmlns='http://www.w3.org/2000/svg'
@@ -54,7 +76,7 @@ function RestaurantMenu() {
             </span>
           </p>
           <hr />
-          <small>{menuData.totalRatingsString}</small>
+          <small>{restInfo.totalRatingsString}</small>
         </div>
       </div>
       <div className='px-5 mx-5'>
@@ -62,14 +84,14 @@ function RestaurantMenu() {
           Menu
         </h3>
         <ul data-testid='menuList'>
-          {Object.values(menuData.menu.items).map((ele, idx) => {
-            // console.log(menuData);
+          {menuItems.map((e, idx) => {
+            const ele = e.card.info;
             return (
-              <li key={ele.id}>
+              <li key={ele.id + idx}>
                 <div className='flex justify-between w-fit p-2 bg-slate-50 my-2 shadow'>
                   <div className='flex-col p-2 w-[350px] '>
                     <h3>{ele.name}</h3>
-                    {ele.description.trim() ? (
+                    {ele.description ? (
                       <small className='opacity-50'>{ele.description}</small>
                     ) : (
                       <small className='opacity-30'>
@@ -87,9 +109,9 @@ function RestaurantMenu() {
                     </small>
                   </div>
                   <div className='w-[118px] h-[100px] m-1 p-1'>
-                    {ele.cloudinaryImageId ? (
+                    {ele.imageId ? (
                       <img
-                        src={IMG_CDN_URL + ele.cloudinaryImageId}
+                        src={IMG_CDN_URL + ele.imageId}
                         alt={ele.name}
                         loading='lazy'
                         className='h-full object-cover rounded-md'
