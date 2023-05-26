@@ -556,8 +556,8 @@ export const restaurantList = [
     subtype: 'basic',
   },
 ];
-export const mainUrl = 'https://mockapi-swiggy.onrender.com/api';
-export const menuUrl = 'https://mockapi-swiggy.onrender.com/api/menu/';
+export const mainUrl = 'https://mockapi-sigma.vercel.app/api';
+export const menuUrl = 'https://mockapi-sigma.vercel.app/api/menu/';
 export const emptyCartURl =
   'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0';
 
