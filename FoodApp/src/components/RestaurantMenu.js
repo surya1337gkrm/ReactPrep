@@ -12,14 +12,15 @@ function RestaurantMenu() {
   const params = useParams();
   // const [menuData, setMenuData] = useState(null);
   const menuData = useRestaurant(params.menuId);
+
   const dispatch = useDispatch();
 
-  const restInfo = menuData?.cards[0].card.card.info;
-  const offersInfo = menuData?.cards[1];
+  const restInfo = menuData?.cards[2].card.card.info;
+  // const offersInfo = menuData?.cards[1];
   const menu =
-    menuData?.cards[2].groupedCard.cardGroupMap.REGULAR.cards.slice(1);
+    menuData?.cards[4].groupedCard.cardGroupMap.REGULAR.cards.slice(1);
 
-  console.log(menu);
+
 
   let menuItems;
   if (menu) {
@@ -35,7 +36,6 @@ function RestaurantMenu() {
       .flat();
   }
 
-  console.log(menuItems);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -114,7 +114,7 @@ function RestaurantMenu() {
                         src={IMG_CDN_URL + ele.imageId}
                         alt={ele.name}
                         loading='lazy'
-                        className='h-full object-cover rounded-md'
+                        className='h-full w-full object-cover rounded-md'
                       />
                     ) : (
                       <FillerImage className='w-full' />
