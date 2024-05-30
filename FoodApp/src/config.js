@@ -1,5 +1,5 @@
 export const IMG_CDN_URL =
-  'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_508,h_320,c_fill/';
+  'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/';
 export const restaurantList = [
   {
     type: 'restaurant',
@@ -559,7 +559,7 @@ export const restaurantList = [
 export const mainUrl = 'https://mockapi-sigma.vercel.app/api';
 export const menuUrl = 'https://mockapi-sigma.vercel.app/api/menu/';
 export const emptyCartURl =
-  'https://res.cloudinary.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/2xempty_cart_yfxml0';
+  'https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/2xempty_cart_yfxml0';
 
 export const mainUrl2 = 'https://mockapi-swiggy.up.railway.app/api';
 export const menuApiURL = 'https://mockapi-swiggy.up.railway.app/api/menu/';
