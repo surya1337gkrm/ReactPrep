@@ -22,15 +22,18 @@ const Body = () => {
     try {
       setShow(true);
       const { data } = await axios.get(`${mainUrl}?offset=${offset}`);
+      
       setAllRestaurants((prevData) => [
         ...prevData,
-        ...data?.data?.cards.map((res) => res.data),
+        ...data?.data?.cards.flatMap((res) => (res?.card?.card?.gridElements?.infoWithStyle?.restaurants)!==undefined ? res?.card?.card?.gridElements?.infoWithStyle?.restaurants:[]),
       ]);
+
       setFilteredRestaurants((prevData) => [
         ...prevData,
-        ...data?.data?.cards.map((res) => res.data),
-      ]),
-        setTotal(data?.data?.totalSize);
+        ...data?.data?.cards.flatMap((res) => (res?.card?.card?.gridElements?.infoWithStyle?.restaurants)!==undefined ? res?.card?.card?.gridElements?.infoWithStyle?.restaurants:[]),
+      ])
+
+      setTotal(data?.data?.totalSize);
       setShow(false);
     } catch (e) {
       console.log(e);
@@ -76,9 +79,9 @@ const Body = () => {
   if (show) {
     let cards = filteredRestaurants.map((restaurant, idx) => (
       <Link
-        to={`/restaurant/${restaurant.data.id}`}
-        key={restaurant.data.id + idx}>
-        <RestaurantCard {...restaurant.data} />
+        to={`/restaurant/${restaurant.info.id}`}
+        key={restaurant.info.id + idx}>
+        <RestaurantCard {...restaurant.info} />
       </Link>
     ));
     let shimmerCards = Array(10)
@@ -95,13 +98,13 @@ const Body = () => {
       ));
     restaurantCards = [...cards, ...shimmerCards];
   } else {
-    restaurantCards = filteredRestaurants.map((restaurant, idx) => (
-      <Link
-        to={`/restaurant/${restaurant.data.id}`}
-        key={restaurant.data.id + idx}>
-        <RestaurantCard {...restaurant.data} />
+    restaurantCards = filteredRestaurants.map((restaurant, idx) => {
+      return ( <Link
+        to={`/restaurant/${restaurant.info.id}`}
+        key={restaurant.info.id + idx}>
+        <RestaurantCard {...restaurant.info} />
       </Link>
-    ));
+    )})
   }
 
   return (
